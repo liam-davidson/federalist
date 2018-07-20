@@ -10,16 +10,6 @@ import AdvancedSiteSettings from './AdvancedSiteSettings';
 import CopyRepoForm from './CopyRepoForm';
 import siteActions from '../../../actions/siteActions';
 
-const propTypes = {
-  site: SITE,
-};
-
-const defaultProps = {
-  site: null,
-};
-
-const mapStateToProps = ({ sites }) => ({ site: sites.currentSite });
-
 class SiteSettings extends React.Component {
   constructor(props) {
     super(props);
@@ -107,6 +97,7 @@ class SiteSettings extends React.Component {
         />
         <ExpandableArea title="Advanced settings">
           <AdvancedSiteSettings
+            siteId={site.id}
             initialValues={advancedInitialValues}
             onDelete={this.handleDelete}
             onSubmit={this.handleUpdate}
@@ -120,8 +111,17 @@ class SiteSettings extends React.Component {
   }
 }
 
-SiteSettings.propTypes = propTypes;
-SiteSettings.defaultProps = defaultProps;
+SiteSettings.propTypes = {
+  site: SITE,
+};
+
+SiteSettings.defaultProps = {
+  site: null,
+};
+
+const mapStateToProps = ({ sites }) => ({
+  site: sites.currentSite,
+});
 
 export { SiteSettings };
 export default connect(mapStateToProps)(SiteSettings);
